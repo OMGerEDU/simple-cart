@@ -1,0 +1,83 @@
+<div class="container d-flex justify-content-center">
+
+<link rel="stylesheet" href={{url_for('static', filename='stylesheet/style.css')}} />
+
+
+</div>
+		        
+<div class="col-md-12 col-lg-4" style="    position: absolute; right:10px; top: 50px;">
+    <div class="summary">
+        <h3>Shopping Card summary description.</h3>
+        {% for products in cartData %}
+        {%for product in products %}
+        <div class="summary-item"><span class="text">{{product[0]}}</span><span class="price">{{product[1]}}</span></div>
+        {% endfor %}
+        {%endfor%}
+        <div class="summary-item"><span class="text">Total</span><span class="price">{{sum}}</span></div>
+        <form action="/checkout/" method="POST" enctype="multipart/form-data">
+        
+        <input name="cartData" type="hidden" value=" {{cartData}} ">
+        <button class="btn btn-primary btn-lg btn-block">Checkout</button>
+        </form>
+    </div>
+</div>
+
+
+
+
+
+    <table>
+        <script type="text/javascript">
+            
+
+        </script>
+        <tr>
+
+            </tr> <tr>
+        
+            
+            <td>
+     <figure class="card card-product-grid card-lg"> <img src="{{product[3]}}">
+        
+         <figcaption class="info-wrap">
+             <div class="row">
+                <form action="/addToCart/" method="POST" enctype="multipart/form-data">
+                 <div class="col-md-9 col-xs-9"><span>{{product[0]}}</span> <br> <span  class="rated">{{product[2]}}</span> </div>
+                 
+
+                 <div class="col-md-3 col-xs-3">
+                 </div>
+             </div>
+         </figcaption>
+         <div class="bottom-wrap-payment">
+             <figcaption class="info-wrap">
+                 <div class="row">
+                     <div class="col-md-9 col-xs-9"> <a href="#" class="title" data-abc="true" >{{product[1]}}</a> </div>
+
+                 </div>
+             </figcaption>
+         </div>
+         <button  class="btn btn-primary" height="50px"width="250px" > Add to cart.</button>
+         
+         <input name="productNameAddToCart" type="hidden" value=" {{product[0]}}">
+         <input name="productDescription" type="hidden" value=" {{product[2]}}">
+         <input name="productPriceAddCart" type="hidden" value=" {{product[1]}}">
+         <input name="productImage" type="hidden" value=" {{product[0]}}">
+        </form>
+         </div>
+     </figure>
+    </td>
+        {%endfor%}
+        {%endfor %}
+    </tr>
+
+    
+
+    </table>
+
+    
+
+    
+
+     
+ </div>

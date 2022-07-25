@@ -1,0 +1,87 @@
+<html>
+<head>
+<link rel="stylesheet" href={{url_for('static', filename='stylesheet/style.css')}} />
+</head>
+<style>
+    * {
+      box-sizing: border-box;
+    }
+    
+    .row {
+      display: flex;
+      margin-left:-5px;
+      margin-right:-5px;
+    }
+    
+    .column {
+      flex: 50%;
+      padding: 5px;
+    }
+    
+    table {
+      border-collapse: collapse;
+      border-spacing: 0;
+      width: 100%;
+      border: 1px solid #ddd;
+    }
+    
+    th, td {
+      text-align: left;
+      padding: 16px;
+    }
+    
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+    
+    
+    </style>
+
+
+    <div class="row" > 
+        <div class="column">
+        <table >
+        <tr>
+            <th> Last days </th>
+        </tr>
+        {% for day in lastDays %}
+        <tr>
+        <td> {{day[1]}} _______ {{day[2]}} </td>
+        </tr>
+        {%endfor%}
+        </table>
+    </div>
+    <div class="column">
+        <table >
+            <tr>
+                <th> Top sellers </th>
+            </tr>
+            
+            {% for product in statsData %}
+            <td> {{product[0]}} : {{product[1]}}  </td>
+            </tr>
+            {%endfor%}
+            <tr>
+            </tr>
+            </table>
+
+        </div>
+
+        <div class="column">
+            <table >
+                <th> Most unique sales</th>
+                {% for product in uniqueData %}
+                <tr>
+                    <td> {{product[0]}} : {{product[1]}} </td>
+                </tr>
+                {%endfor%}
+    
+                </table>
+    
+            </div>
+    </div>
+
+
+
+
+</html>
