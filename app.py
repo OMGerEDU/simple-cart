@@ -3,6 +3,9 @@ import sqlite3, hashlib, os
 from werkzeug.utils import secure_filename
 from datetime import date
 #from gevent.pywsgi import WSGIServer
+#from gevent.pywsgi import WSGIServer
+
+
 
 
 app = Flask(__name__)
@@ -295,9 +298,9 @@ def parse(data):
     
 
 if __name__ == '__main__':
-    #app = create_app()
-    #app.run(host='0.0.0.0')
-    app.run(debug=True)
+    app = create_app()
+    app.run(host='0.0.0.0')
+    #app.run(debug=True)
     #http_server = WSGIServer(('', 5000), app)
     #http_server.serve_forever()
 

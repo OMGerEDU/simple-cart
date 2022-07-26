@@ -37,6 +37,8 @@
         
             
             <td>
+            {% for products in itemData %}
+            {% for product in products %}
      <figure class="card card-product-grid card-lg"> <img src="{{product[3]}}">
         
          <figcaption class="info-wrap">
