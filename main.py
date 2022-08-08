@@ -295,11 +295,9 @@ def parse(data):
     
 
 if __name__ == '__main__':
-    #app = create_app()
+    #app = create_app() # for docker
+    app.run(debug=True) # for local host
     #app.run(host='0.0.0.0')
-    app.run(debug=True)
-    #http_server = WSGIServer(('', 5000), app)
-    #http_server.serve_forever()
 
     
     

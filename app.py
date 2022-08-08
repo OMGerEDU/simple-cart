@@ -2,8 +2,7 @@ from flask import *
 import sqlite3, hashlib, os
 from werkzeug.utils import secure_filename
 from datetime import date
-#from gevent.pywsgi import WSGIServer
-#from gevent.pywsgi import WSGIServer
+
 
 
 
@@ -105,15 +104,11 @@ def addToCart():
                     cur = conn.cursor()
                     cur.execute('''INSERT INTO kart(name,price) VALUES(?,?) ''',(productName,productPrice))
                     conn.commit()
-                    print("succeed")
                 except:
-                    print("fuck")
+                    print("Insert into kart failed.")
                     conn.rollback() 
         return redirect('/home')
     
-
-
-
 @app.route('/addItem/',methods=["GET", "POST"]) 
 def addItem():
     error=None
@@ -129,9 +124,6 @@ def addItem():
                         cur = conn.cursor()
                         cur.execute('''INSERT INTO products (name, price, description,image) VALUES (?,?,?,?)''',(productName,productPrice,productDescription,imagename))
                         conn.commit()
-                        message="added successfully"
-                        print(message)
-                        flash('Item added successfully.')
                     except:
                         message="error found, update failed."
                         print(message)
@@ -146,16 +138,12 @@ def checkout():
     if request.method == "POST":
         with sqlite3.connect('database.db') as conn:
                 itemData,cartData,sum=fetchItemData_cardData(conn)
-
                 cur = conn.cursor()
                 cur.execute('''DELETE from kart where productId > 0''')
                 conn.commit()
                 uniquePurchase(cartData)
-                addProfit(sum,conn)
-
-        
+                addProfit(sum,conn)        
     return redirect('/home')
-
 
 def addProfit(sum,conn):
     today = date.today()
@@ -170,7 +158,7 @@ def addProfit(sum,conn):
 def uniquePurchase(order):
     unique_list = []
     general_list = []
-    flag=0
+
 
     for products in order:
         for product in products:
@@ -178,12 +166,11 @@ def uniquePurchase(order):
                 res = isinstance(info, str)
                 if res == True:
                     general_list.append(info)
-                    
                 if info not in unique_list and res == True:
                     unique_list.append(info) 
                     break
-    
-    
+
+
     with sqlite3.connect('database.db') as conn:
         for products in general_list:
             try:
@@ -197,8 +184,7 @@ def uniquePurchase(order):
 
     with sqlite3.connect('database.db') as conn:
         for products in unique_list:
-            try:    
-
+            try:        
                 products = products.lstrip()
                 print(products)
                 cur = conn.cursor()
@@ -247,7 +233,7 @@ def root():
                 except:
                     message="error found, update failed."
                     print(message)
-                    conn.rollback()            
+                    conn.rollback()
     return render_template('admin.html',itemData=itemData)
 
 
@@ -298,9 +284,9 @@ def parse(data):
     
 
 if __name__ == '__main__':
-    app = create_app()
-    app.run(host='0.0.0.0')
-    #app.run(debug=True)
+    
+    #app.run(host='0.0.0.0')
+    app.run(debug=True)
     #http_server = WSGIServer(('', 5000), app)
     #http_server.serve_forever()
 
